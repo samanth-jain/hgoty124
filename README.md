@@ -4,6 +4,8 @@ Web app for a UK day-ahead power buying team: shows the latest wind generation f
 and quantifies forecast accuracy (Elexon FUELHH actuals vs WINDFOR forecasts, January 2026, national level).
 
 > AI tools (GitHub Copilot) were used to assist in building this application.
+## Deployment
+Link: [https://hgoty124-frontend.vercel.app/](https://hgoty124-frontend.vercel.app/)
 
 ## Structure
 - `backend/` – Python (FastAPI), MVC:
@@ -40,5 +42,4 @@ First API call downloads January 2026 data from Elexon and caches it in `backend
 ## API
 `GET /api/series`, `/api/metrics`, `/api/metrics/by-horizon`, `/api/decision?delivery_date=2026-01-15`, `/api/health`
 
-## Deployment
-Link: _TODO (Vercel/Heroku)_
+
