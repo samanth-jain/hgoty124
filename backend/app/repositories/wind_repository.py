@@ -33,12 +33,15 @@ class WindDataRepository:
             else:
                 actuals = self._client.fetch_actuals()
                 forecasts = self._client.fetch_forecasts()
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text(json.dumps({
-                    "actuals": [{"t": a.start_time.isoformat(), "g": a.generation} for a in actuals],
-                    "forecasts": [{"t": f.start_time.isoformat(), "p": f.publish_time.isoformat(), "g": f.generation}
-                                  for f in forecasts],
-                }))
+                try:
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_text(json.dumps({
+                        "actuals": [{"t": a.start_time.isoformat(), "g": a.generation} for a in actuals],
+                        "forecasts": [{"t": f.start_time.isoformat(), "p": f.publish_time.isoformat(), "g": f.generation}
+                                      for f in forecasts],
+                    }))
+                except OSError:
+                    pass  # read-only filesystem (e.g. serverless); keep data in memory only
             self._index(actuals, forecasts)
             self._loaded = True
 
